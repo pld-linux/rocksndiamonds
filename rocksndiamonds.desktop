@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Rocks & Diamonds
 Comment=Boulderdash clone
+Name[ja]=ロックス＆ダイアモンズ
 Comment[pl]=Klon Boulderdasha
 Icon=rocksndiamonds.png
 Exec=rocksndiamonds
