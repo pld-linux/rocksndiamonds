@@ -8,7 +8,7 @@ Copyright: 	GPL
 Group: 		Games/Video
 Vendor: 	Pacific HiTech
 Packager: 	Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 This is a nice little game with color graphics and sound for your
@@ -17,7 +17,6 @@ It will not work on black&white systems, and maybe not on gray scale systems.
 
 If you know the game "Boulderdash" (Commodore C64) or "Emerald Mine"
 (Amiga), you know what "ROCKS'N'DIAMONDS" is about.
-
 
 %prep
 %setup -q
