@@ -1,15 +1,14 @@
-Summary: RocksNDiamonds - Intense strategy game for X
-Name: rocksndiamonds
-Version: 1.3.0
-Release: 1
-Source: ftp.pht.com:/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
-Patch: %{name}-1.2.0.patch
-Copyright: GPL
-Group: games/video
-Vendor: Pacific HiTech
-Distribution: Homegrown stuff for RedHat 5.*
-Packager: Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
-BuildRoot: /tmp/%{name}-%{version}-%{release}-root
+Summary: 	RocksNDiamonds - Intense strategy game for X
+Name: 		rocksndiamonds
+Version: 	1.3.0
+Release: 	1
+Source: 	ftp.pht.com:/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
+Patch: 		rocksndiamonds-Makefile.patch
+Copyright: 	GPL
+Group: 		games/video
+Vendor: 	Pacific HiTech
+Packager: 	Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
+BuildRoot: 	/tmp/%{name}-%{version}-root
 
 %description
 This is a nice little game with color graphics and sound for your
