@@ -129,7 +129,7 @@ install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games
+install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
@@ -162,7 +162,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/%{name}/levels
 %{_datadir}/%{name}/[gms]*
 %{_datadir}/%{name}/levels/[BCT]*
-%{_applnkdir}/Games/*
+%{_applnkdir}/Games/Arcade/*
 %{_pixmapsdir}/*
 %defattr(664,root,games,755)
 %dir /var/games/%{name}
