@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Rocks & Diamonds
+Comment=Boulderdash clone
+Comment[pl]=Klon Boulderdasha
+Icon=rocksndiamonds.png
+Exec=rocksndiamonds
+Terminal=0
+Type=Application

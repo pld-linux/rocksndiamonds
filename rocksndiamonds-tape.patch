@@ -1,0 +1,11 @@
+diff -ruN aa/src/tape.c aabb/src/tape.c
+--- aa/src/tape.c	Tue Dec  5 01:13:42 2000
++++ aabb/src/tape.c	Fri Feb 22 23:19:00 2002
+@@ -11,6 +11,7 @@
+ * tape.c                                                   *
+ ***********************************************************/
+ 
++#include <time.h>
+ #include "libgame/libgame.h"
+ 
+ #include "tape.h"
