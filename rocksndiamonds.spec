@@ -3,7 +3,7 @@ Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
 Version:	2.0.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
@@ -115,17 +115,17 @@ Requires:	%{name} = %{version}
 	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -DTARGET_SDL `sdl-config --cflags` \
 		-DSCORE_ENTRIES=MANY_PER_NAME \
-		-DRO_GAME_DIR=\\\"%{_datadir}/games/%{name}\\\" \
+		-DRO_GAME_DIR=\\\"%{_datadir}/%{name}\\\" \
 		-DRW_GAME_DIR=\\\"/var/games/%{name}\\\"" \
 	LDFLAGS="%{rpmldflags} -lSDL_image -lSDL_mixer `sdl-config --libs`"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/games/%{name},%{_applnkdir}/Games,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_applnkdir}/Games,%{_pixmapsdir}}
 
 install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
-mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/games/%{name}
+mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 gzip -9nf CHANGES HARDWARE README TODO
 
@@ -134,7 +134,7 @@ install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
 install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/
-for i in $RPM_BUILD_ROOT%{_datadir}/games/%{name}/levels/*
+for i in $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/*
 do
 	cd $i
 	for j in `find * -type d`
@@ -158,10 +158,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc *.gz
 %attr(2755,root,games) %{_bindir}/%{name}
 %doc %{_mandir}/man6/*
-%dir %{_datadir}/games/%{name}
-%dir %{_datadir}/games/%{name}/levels
-%{_datadir}/games/%{name}/[gms]*
-%{_datadir}/games/%{name}/levels/[BCT]*
+%dir %{_datadir}/%{name}
+%dir %{_datadir}/%{name}/levels
+%{_datadir}/%{name}/[gms]*
+%{_datadir}/%{name}/levels/[BCT]*
 %{_applnkdir}/Games/*
 %{_pixmapsdir}/*
 %defattr(664,root,games,755)
@@ -171,18 +171,18 @@ rm -rf $RPM_BUILD_ROOT
 
 %files levels-dx
 %defattr(644,root,root,755)
-%{_datadir}/games/%{name}/levels/DX_Boulderdash
+%{_datadir}/%{name}/levels/DX_Boulderdash
 %defattr(664,root,games,755)
 /var/games/%{name}/scores/dx*
 
 %files levels-emc
 %defattr(644,root,root,755)
-%{_datadir}/games/%{name}/levels/Emerald_Mine_Club
+%{_datadir}/%{name}/levels/Emerald_Mine_Club
 %defattr(664,root,games,755)
 /var/games/%{name}/scores/emc*
 
 %files levels-supaplex
 %defattr(644,root,root,755)
-%{_datadir}/games/%{name}/levels/Supaplex
+%{_datadir}/%{name}/levels/Supaplex
 %defattr(664,root,games,755)
 /var/games/%{name}/scores/supaplex*
