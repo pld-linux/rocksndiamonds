@@ -38,7 +38,7 @@ make install prefix=$RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES COPYING CREDITS HARDWARE INSTALL README TODO
 %attr(755,root,root) /usr/X11R6/bin/rocksndiamonds
-%doc /usr/man/man6/rocksndiamonds.6
+%doc %{_mandir}/man6/rocksndiamonds.6
 %dir /usr/lib/games/rocksndiamonds
 %dir /usr/lib/games/rocksndiamonds/graphics
 /usr/lib/games/rocksndiamonds/graphics/*
