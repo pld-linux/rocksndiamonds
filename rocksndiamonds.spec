@@ -8,7 +8,7 @@ Copyright: 	GPL
 Group: 		games/video
 Vendor: 	Pacific HiTech
 Packager: 	Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
-BuildRoot: 	/tmp/%{name}-%{version}-root
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
 This is a nice little game with color graphics and sound for your
