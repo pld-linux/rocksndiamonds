@@ -13,6 +13,7 @@ Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-tape.patch
 #Patch1:		%{name}-va_arg.patch
+URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
