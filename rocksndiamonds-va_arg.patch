@@ -1,0 +1,11 @@
+--- rocksndiamonds-1.3.0/src/buttons.c~	Mon Feb  1 03:00:50 1999
++++ rocksndiamonds-1.3.0/src/buttons.c	Tue Nov 27 18:35:56 2001
+@@ -1894,7 +1894,7 @@
+ 	break;
+ 
+       case GDI_CHECKED:
+-	gi->checked = va_arg(ap, boolean);
++	gi->checked = va_arg(ap, int);
+ 	break;
+ 
+       case GDI_RADIO_NR:

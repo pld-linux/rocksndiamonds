@@ -2,7 +2,7 @@ Summary:	Rocks'N'Diamonds - Intense strategy game for X
 Summary(pl):	Rocks'N'Diamonds - gra strategiczna pod X
 Name:		rocksndiamonds
 Version:	1.3.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Group(de):	X11/Applikationen/Spiele
@@ -10,6 +10,7 @@ Group(pl):	X11/Aplikacje/Gry
 Vendor:		Pacific HiTech
 Source0:	ftp://ftp.pht.com/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
+Patch1:		%{name}-va_arg.patch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
@@ -32,14 +33,18 @@ lub "Emerald Mine" (Amiga), bêdziesz wiedzia³ o czym jet
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
 
 %build
-%{__make}
+%{__make} GAME_DIR=%{_libdir}/games/rocksndiamonds
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install prefix=$RPM_BUILD_ROOT
+%{__make} install prefix=$RPM_BUILD_ROOT \
+	GAME_DIR=$RPM_BUILD_ROOT%{_libdir}/games/rocksndiamonds
+install -d $RPM_BUILD_ROOT%{_mandir}/man6
+cp rocksndiamonds.1 $RPM_BUILD_ROOT%{_mandir}/man6/rocksndiamonds.6
 
 gzip -9nf CHANGES CREDITS HARDWARE README TODO
 
@@ -50,7 +55,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES.gz CREDITS.gz HARDWARE.gz README.gz TODO.gz
 %attr(755,root,root) %{_bindir}/rocksndiamonds
-%doc %{_mandir}/man6/rocksndiamonds.6
+%doc %{_mandir}/man6/*
 %dir %{_libdir}/games/rocksndiamonds
 %{_libdir}/games/rocksndiamonds/graphics
 %{_libdir}/games/rocksndiamonds/levels
