@@ -47,12 +47,3 @@ make install prefix=$RPM_BUILD_ROOT
 %dir %{_libdir}/games/rocksndiamonds/sounds
 %{_libdir}/games/rocksndiamonds/sounds/*
 %dir %{_libdir}/games/rocksndiamonds/scores
-
-%changelog
-* Thu Jan 11 1999 Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org> [1.3.0-1]
-
-- upgraded to version 1.3.0
-
-* Sat Dec 19 1998 Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org> [1.2.0-1]
-
-- initial version packaged by me.
