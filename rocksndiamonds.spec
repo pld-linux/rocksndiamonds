@@ -5,8 +5,6 @@ Version:	1.3.0
 Release:	2
 License:	GPL
 Group:		X11/Applications/Games
-Group(de):	X11/Applikationen/Spiele
-Group(pl):	X11/Aplikacje/Gry
 Vendor:		Pacific HiTech
 Source0:	ftp://ftp.pht.com/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
