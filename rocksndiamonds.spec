@@ -3,7 +3,7 @@ Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
 Version:	2.0.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
@@ -13,6 +13,7 @@ Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-tape.patch
+Patch1:		%{name}-va_arg_fix.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
@@ -109,6 +110,7 @@ Requires:	%{name} = %{version}
 %prep
 %setup -q -a1 -a2 -a3
 %patch0 -p1
+%patch1
 
 %build
 %{__make} \
