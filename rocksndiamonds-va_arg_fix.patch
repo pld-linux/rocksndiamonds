@@ -1,0 +1,11 @@
+--- src/libgame/gadgets.c~	Sun Aug  4 00:03:00 2002
++++ src/libgame/gadgets.c	Sun Aug  4 00:03:15 2002
+@@ -309,7 +309,7 @@
+ 	break;
+ 
+       case GDI_CHECKED:
+-	gi->checked = va_arg(ap, boolean);
++	gi->checked = (boolean) va_arg(ap, int);
+ 	break;
+ 
+       case GDI_RADIO_NR:
