@@ -2,9 +2,9 @@ Summary: 	RocksNDiamonds - Intense strategy game for X
 Name: 		rocksndiamonds
 Version: 	1.3.0
 Release: 	1
-Source: 	ftp.pht.com:/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
+Source: 	ftp://ftp.pht.com/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
 Patch: 		rocksndiamonds-Makefile.patch
-Copyright: 	GPL
+License: 	GPL
 Group: 		X11/Games/Video
 Vendor: 	Pacific HiTech
 Packager: 	Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
