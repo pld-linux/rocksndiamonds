@@ -2,12 +2,12 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	2.1.1
+Version:	3.0.6
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	3c3799c01a54487b719999797e41e2fa
+# Source0-md5:	f848f40b91a0128b8022c4fb91154a5f
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
@@ -127,7 +127,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_app
 
 install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
-mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -a graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
@@ -137,15 +137,11 @@ install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/
 for i in $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/*
 do
 	cd $i
-	for j in `find * -type d`
-	do
-		mkdir $RPM_BUILD_ROOT/var/games/%{name}/scores/$j
-		cd $j
-		for k in `ls | grep \\\.level`
-		do
-			touch $RPM_BUILD_ROOT/var/games/%{name}/scores/$j/`basename $k .level`.score
-		done
-		cd ..
+	for file in `find . -name '*.level' -type f`; do
+		dir=$(dirname "$file")
+		file=$(basename "$file" .level)
+		install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}
+		touch $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}/${file}.score
 	done
 	cd ..
 done
@@ -167,22 +163,26 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(664,root,games,755)
 %dir /var/games/%{name}
 %dir /var/games/%{name}/scores
-/var/games/%{name}/scores/[bcr]*
+%dir /var/games/%{name}/scores/[bcr]*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/[bcr]*/*.score
 
 %files levels-dx
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/DX_Boulderdash
 %defattr(664,root,games,755)
-/var/games/%{name}/scores/dx*
+%dir /var/games/%{name}/scores/dx*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/dx*/*.score
 
 %files levels-emc
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Emerald_Mine_Club
 %defattr(664,root,games,755)
-/var/games/%{name}/scores/emc*
+%dir /var/games/%{name}/scores/emc*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/emc*/*.score
 
 %files levels-supaplex
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Supaplex
 %defattr(664,root,games,755)
-/var/games/%{name}/scores/supaplex*
+%dir /var/games/%{name}/scores/supaplex*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/supaplex*/*.score
