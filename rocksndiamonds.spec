@@ -129,8 +129,6 @@ install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-gzip -9nf CHANGES HARDWARE README TODO
-
 install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
@@ -157,7 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc CHANGES HARDWARE README TODO
 %attr(2755,root,games) %{_bindir}/%{name}
 %doc %{_mandir}/man6/*
 %dir %{_datadir}/%{name}
