@@ -28,7 +28,7 @@ make
 
 %install
 [ "$RPM_BUILD_ROOT" != '/' ] && rm -rf $RPM_BUILD_ROOT
-make install prefix=$RPM_BUILD_ROOT
+%{__make} install prefix=$RPM_BUILD_ROOT
 
 %clean
 [ "$RPM_BUILD_ROOT" != '/' ] && rm -rf $RPM_BUILD_ROOT
