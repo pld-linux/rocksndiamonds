@@ -23,7 +23,6 @@ BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-
 %description
 A game like "Boulderdash" (C 64), "Emerald Mine" (Amiga) or "Supaplex"
 (PC). Included are many levels known from the games "Boulderdash",
@@ -133,7 +132,7 @@ install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
-install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/
+install -d $RPM_BUILD_ROOT/var/games/%{name}/scores
 for i in $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/*
 do
 	cd $i
