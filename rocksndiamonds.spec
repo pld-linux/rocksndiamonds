@@ -5,7 +5,7 @@ Release: 	1
 Source: 	ftp.pht.com:/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
 Patch: 		rocksndiamonds-Makefile.patch
 Copyright: 	GPL
-Group: 		games/video
+Group: 		Games/Video
 Vendor: 	Pacific HiTech
 Packager: 	Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org>
 BuildRoot:	/tmp/%{name}-%{version}-root
