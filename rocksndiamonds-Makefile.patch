@@ -1,0 +1,38 @@
+diff -ur rocksndiamonds-1.2.0/Makefile rocksndiamonds-1.2.0-fixed/Makefile
+--- rocksndiamonds-1.2.0/Makefile	Sat Dec  5 16:24:39 1998
++++ rocksndiamonds-1.2.0-fixed/Makefile	Sat Dec 19 21:43:39 1998
+@@ -18,11 +18,11 @@
+ 
+ # specify path to X11 on your system
+ # if undefined, use system defaults (works fine with Linux/gcc)
+-# X11_PATH = /usr/X11
++X11_PATH = $(prefix)/usr/X11R6
+ 
+ # specify path to install game data (graphics, sounds, levels, scores)
+ # default is '.', so you can play without installing game data somewhere
+-# GAME_DIR = /usr/local/games
++GAME_DIR = $(prefix)/usr/lib/games/rocksndiamonds
+ 
+ # uncomment this if your system has no joystick include file
+ # JOYSTICK = -DNO_JOYSTICK
+@@ -33,7 +33,7 @@
+ # choose if you want to allow many global score file entries for one player
+ # default is 'MANY_PER_NAME'
+ # when installing the game in a multi user environment, choose this
+-# SCORE_ENTRIES = ONE_PER_NAME
++SCORE_ENTRIES = ONE_PER_NAME
+ # when installing the game in a single user environment, choose this
+ # SCORE_ENTRIES = MANY_PER_NAME
+ 
+@@ -57,3 +57,11 @@
+ 
+ clean:
+ 	$(MAKE_CMD) clean
++
++install: all
++	install -d $(X11_PATH)/bin
++	install -c rocksndiamonds $(X11_PATH)/bin
++	install -d $(prefix)/usr/man/man6/
++	install -c rocksndiamonds.1 $(prefix)/usr/man/man6/rocksndiamonds.6
++	install -d $(GAME_DIR)
++	cp -r graphics levels scores sounds $(GAME_DIR)
