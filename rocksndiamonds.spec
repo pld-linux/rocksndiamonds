@@ -2,20 +2,27 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.0.8
+Version:	3.1.0
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	3b8e00464137502ed66953d412b5a3e8
+# Source0-md5:	526af63a10a498ab7d809783fffc9ade
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
 # Source2-md5:	3af9a97e59f29995f3f7fc4da0595af6
 Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
 # Source3-md5:	fbc250f7995c666c1c745dbaf591ce32
-Source4:	%{name}.desktop
-Source5:	%{name}.png
+Source4:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/rnd-contrib-1.0.0.tar.gz
+# Source4-md5:	bc5c427c2408c2886ceb13f59d2e3e75
+# from rocksndiamonds-3.0.8, missing in 3.1.0 or contrib(?)
+Source5:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
+# Source5-md5:	d05d38c64c6e65a913932f587e37db4a
+Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/BD2K3-1.0.0.zip
+# Source6-md5:	ebc8e019fa9a799757d90828e242c206
+Source7:	%{name}.desktop
+Source8:	%{name}.png
 Patch0:		%{name}-tape.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
@@ -71,11 +78,50 @@ Ele tem gráficos legais, som e música estéreo, editor de níveis, modo
 cooperativo, gravador em fita (para rever jogadas) e suporte a rede e
 joystick.
 
+%package levels-bd2k3
+Summary:	BD2K3 level set
+Summary(pl):	Zestaw poziomów BD2K3
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-bd2k3
+BD2K3 level set by Alan Bond.
+
+%description levels-bd2k3 -l pl
+Zestaw poziomów BD2K3 autorstwa Alana Bonda.
+
+%package levels-boulderdash
+Summary:	Levels from several Boulderdash clones
+Summary(pl):	Poziomy z kilku klonów Boulderdasha
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-boulderdash
+Levels from several Boulderdash clones (Boulderdash II, Boulderdash
+16, xbd) taken from Rocks'n'Diamonds 3.0.8.
+
+%description levels-boulderdash -l pl
+Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
+xbd) wziête z Rocks'n'Diamonds 3.0.8.
+
+%package levels-contrib
+Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2003
+Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2003
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-contrib
+Rocks'n'Diamonds levels contributed by other players in 1995-2003.
+
+%description levels-contrib -l pl
+Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach
+1995-2003.
+
 %package levels-dx
 Summary:	Levels from DX Boulderdash
 Summary(pl):	Poziomy z DX Boulderdash
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description levels-dx
 1400 levels from DX Boulderdash.
@@ -87,7 +133,7 @@ Requires:	%{name} = %{version}
 Summary:	Levels from Emerald Mine Club
 Summary(pl):	Poziomy z Klubu Emerald Mine
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description levels-emc
 10318 levels from Emerald Mine Club.
@@ -99,7 +145,7 @@ Requires:	%{name} = %{version}
 Summary:	Supaplex style levels
 Summary(pl):	Poziomy w stylu Supaplexa
 Group:		X11/Applications/Games
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description levels-supaplex
 1443 Supaplex style levels.
@@ -108,63 +154,90 @@ Requires:	%{name} = %{version}
 1443 poziomy w stylu Supaplexa.
 
 %prep
-%setup -q -a1 -a2 -a3
+%setup -q -a1 -a2 -a3 -a5
+tar xzf %{SOURCE4} -C levels
+unzip %{SOURCE6} -d levels
 %patch0 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -DTARGET_SDL `sdl-config --cflags` \
-		-DSCORE_ENTRIES=MANY_PER_NAME \
-		-DRO_GAME_DIR=\\\"%{_datadir}/%{name}\\\" \
-		-DRW_GAME_DIR=\\\"/var/games/%{name}\\\"" \
-	LDFLAGS="%{rpmldflags} -lSDL_image -lSDL_mixer `sdl-config --libs`"
+	OPTIONS="%{rpmcflags} -Wall" \
+	RO_GAME_DIR=%{_datadir}/%{name} \
+	RW_GAME_DIR=/var/games/%{name} \
+	SCORE_ENTRIES=MANY_PER_NAME
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_applnkdir}/Games/Arcade,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_desktopdir},%{_pixmapsdir}}
 
 install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 cp -a graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
-install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
+install %{SOURCE7}	$RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE8}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
 install -d $RPM_BUILD_ROOT/var/games/%{name}/scores
-for i in $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/*
-do
+cd $RPM_BUILD_ROOT%{_datadir}/%{name}/levels
+for i in *; do
 	cd $i
 	for file in `find . -name '*.level' -type f`; do
 		dir=$(dirname "$file")
+		if [ "$dir" = "." ]; then
+			dir="$i"
+		fi
 		file=$(basename "$file" .level)
 		install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}
 		touch $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}/${file}.score
 	done
 	cd ..
 done
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/BD2K3/readme.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES HARDWARE README TODO
-%doc docs/elements
+%doc CHANGES HARDWARE README TODO docs/elements
 %attr(2755,root,games) %{_bindir}/%{name}
-%doc %{_mandir}/man6/*
 %dir %{_datadir}/%{name}
-%dir %{_datadir}/%{name}/levels
 %{_datadir}/%{name}/[gms]*
-%{_datadir}/%{name}/levels/[BCT]*
-%{_applnkdir}/Games/Arcade/*
-%{_pixmapsdir}/*
+%dir %{_datadir}/%{name}/levels
+%{_datadir}/%{name}/levels/Classic_Games
+%{_datadir}/%{name}/levels/Tutorials
+%{_desktopdir}/*.desktop
+%{_pixmapsdir}/*.png
+%{_mandir}/man6/*
 %defattr(664,root,games,755)
 %dir /var/games/%{name}
 %dir /var/games/%{name}/scores
-%dir /var/games/%{name}/scores/[bcr]*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/[bcr]*/*.score
+%dir /var/games/%{name}/scores/classic_*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/classic_*/*.score
+
+%files levels-bd2k3
+%defattr(644,root,root,755)
+%doc levels/BD2K3/readme.txt
+%{_datadir}/%{name}/levels/BD2K3
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/BD2K3
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/BD2K3/*.score
+
+%files levels-boulderdash
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/Boulderdash
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/bd_*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/bd_*/*.score
+
+%files levels-contrib
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/Contributions*
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/rnd_*
+%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/rnd_*/*.score
 
 %files levels-dx
 %defattr(644,root,root,755)
