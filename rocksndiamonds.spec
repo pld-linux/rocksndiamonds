@@ -2,7 +2,7 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	2.0.1
+Version:	2.1.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
@@ -121,15 +121,13 @@ Requires:	%{name} = %{version}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_applnkdir}/Games,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_applnkdir}/Games/Arcade,%{_pixmapsdir}}
 
 install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-gzip -9nf CHANGES HARDWARE README TODO
-
-install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games
+install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games/Arcade
 install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
@@ -155,14 +153,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc CHANGES HARDWARE README TODO
 %attr(2755,root,games) %{_bindir}/%{name}
 %doc %{_mandir}/man6/*
 %dir %{_datadir}/%{name}
 %dir %{_datadir}/%{name}/levels
 %{_datadir}/%{name}/[gms]*
 %{_datadir}/%{name}/levels/[BCT]*
-%{_applnkdir}/Games/*
+%{_applnkdir}/Games/Arcade/*
 %{_pixmapsdir}/*
 %defattr(664,root,games,755)
 %dir /var/games/%{name}
