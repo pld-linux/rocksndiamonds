@@ -1,61 +1,173 @@
-Summary:	Rocks'N'Diamonds - Intense strategy game for X
-Summary(pl):	Rocks'N'Diamonds - gra strategiczna pod X
+Summary:	Boulderdash clone
+Summary(pl):	Klon Boulderdasha
 Name:		rocksndiamonds
-Version:	1.3.0
-Release:	2
+Version:	2.0.0
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
-Vendor:		Pacific HiTech
-Source0:	ftp://ftp.pht.com/pub/linux/sunsite/X11/games/video/%{name}-%{version}.tar.gz
-Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-va_arg.patch
+Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
+Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
+Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
+Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
+Source4:	%{name}.desktop
+Source5:	%{name}.png
+Patch0:		%{name}-tape.patch
+#Patch1:		%{name}-va_arg.patch
+BuildRequires:	SDL-devel >= 1.1.0
+BuildRequires:	SDL_image-devel
+BuildRequires:	SDL_mixer-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr/X11R6
 %define		_mandir		%{_prefix}/man
 
 %description
-This is a nice little game with color graphics and sound for your Unix
-system with color X11. You need an 8-Bit color display or better. It
-will not work on black&white systems, and maybe not on gray scale
-systems.
+A game like "Boulderdash" (C 64), "Emerald Mine" (Amiga) or "Supaplex"
+(PC). Included are many levels known from the games "Boulderdash",
+"Emerald Mine", "Sokoban", "Supaplex" and "DX-Boulderdash", level
+elements for "Diamond Caves II" style games and a lot of new levels
+designed by other players.
 
-If you know the game "Boulderdash" (8-bit computers) or "Emerald Mine"
-(Amiga), you know what "ROCKS'N'DIAMONDS" is about.
+Some features:
+- joystick support,
+- local multiplayer support,
+- network multiplayer support,
+- soft scrolling with 50 frames/s,
+- stereo sound effects and music,
+- music module support,
+- fullscreen support,
+- 14233 levels (1072 in main package.)
 
 %description -l pl
-To jest ma³a gra z kolorow± grafik± i d¼wiêkiem pod X11. Potrzebuje co
-najmniej 8-bitowego koloru. Je¿eli znasz "Boulderdash" (o¶miobitowce)
-lub "Emerald Mine" (Amiga), bêdziesz wiedzia³ o czym jet
-"Rocks'n'Diamonds".
+Gra podobna do Boulderdasha (o¶miobitowce), Emerald Mine (Amiga) lub
+Supapleksa (PC). Za³±czonych jest wiele poziomów z gier "Boulderdash",
+"Emerald Mine", "Sokoban", "Supaplex" i "DX-Boulderdash", jak i
+zupe³nie nowych, zaprojektowanych przez innych graczy. Gra wspiera
+równie¿ elementy poziomów z "Diamond Caves II".
+
+Niektóre cechy:
+- obs³uga joysticka,
+- wsparcie dla lokalnej gry wieloosobowej,
+- wsparcie dla sieciowej gry wieloosobowej,
+- p³ynne przewijanie z 50 klatkami/s,
+- efekty d¼wiêkowe stereo i muzyka,
+- odtwarzanie modu³ów muzycznych,
+- wy¶wietlanie na ca³ym ekranie,
+- 14233 poziomy (1072 w g³ównym pakiecie.)
+
+%package levels-dx
+Summary:	Levels from DX Boulderdash
+Summary(pl):	Poziomy z DX Boulderdash
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}
+
+%description levels-dx
+1400 levels from DX Boulderdash.
+
+%description levels-dx -l pl
+1400 poziomów z DX Boulderdash.
+
+%package levels-emc
+Summary:	Levels from Emerald Mine Club
+Summary(pl):	Poziomy z Klubu Emerald Mine
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}
+
+%description levels-emc
+10318 levels from Emerald Mine Club.
+
+%description levels-emc -l pl
+10318 poziomów z Klubu Emerald Mine.
+
+%package levels-supaplex
+Summary:	Supaplex style levels
+Summary(pl):	Poziomy w stylu Supaplexa
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}
+
+%description levels-supaplex
+1443 Supaplex style levels.
+
+%description levels-supaplex -l pl
+1443 poziomy w stylu Supaplexa.
 
 %prep
-%setup -q
+%setup -q -a1 -a2 -a3
 %patch0 -p1
-%patch1 -p1
 
 %build
-%{__make} GAME_DIR=%{_libdir}/games/rocksndiamonds
+%{__make} \
+	CC="%{__cc}" \
+	CFLAGS="%{rpmcflags} -DTARGET_SDL `sdl-config --cflags` \
+		-DSCORE_ENTRIES=MANY_PER_NAME \
+		-DRO_GAME_DIR=\\\"%{_datadir}/games/%{name}\\\" \
+		-DRW_GAME_DIR=\\\"/var/games/%{name}\\\"" \
+	LDFLAGS="%{rpmldflags} -lSDL_image -lSDL_mixer `sdl-config --libs`"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__make} install prefix=$RPM_BUILD_ROOT \
-	GAME_DIR=$RPM_BUILD_ROOT%{_libdir}/games/rocksndiamonds
-install -d $RPM_BUILD_ROOT%{_mandir}/man6
-cp rocksndiamonds.1 $RPM_BUILD_ROOT%{_mandir}/man6/rocksndiamonds.6
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/games/%{name},%{_applnkdir}/Games,%{_pixmapsdir}}
 
-gzip -9nf CHANGES CREDITS HARDWARE README TODO
+install %{name}		$RPM_BUILD_ROOT%{_bindir}
+install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
+mv -f graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/games/%{name}
+
+gzip -9nf CHANGES HARDWARE README TODO
+
+install %{SOURCE4}	$RPM_BUILD_ROOT%{_applnkdir}/Games
+install %{SOURCE5}	$RPM_BUILD_ROOT%{_pixmapsdir}
+
+# scores
+install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/
+for i in $RPM_BUILD_ROOT%{_datadir}/games/%{name}/levels/*
+do
+	cd $i
+	for j in `find * -type d`
+	do
+		mkdir $RPM_BUILD_ROOT/var/games/%{name}/scores/$j
+		cd $j
+		for k in `ls | grep \\\.level`
+		do
+			touch $RPM_BUILD_ROOT/var/games/%{name}/scores/$j/`basename $k .level`.score
+		done
+		cd ..
+	done
+	cd ..
+done
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES.gz CREDITS.gz HARDWARE.gz README.gz TODO.gz
-%attr(755,root,root) %{_bindir}/rocksndiamonds
+%doc *.gz
+%attr(2755,root,games) %{_bindir}/%{name}
 %doc %{_mandir}/man6/*
-%dir %{_libdir}/games/rocksndiamonds
-%{_libdir}/games/rocksndiamonds/graphics
-%{_libdir}/games/rocksndiamonds/levels
-%{_libdir}/games/rocksndiamonds/sounds
-%dir %{_libdir}/games/rocksndiamonds/scores
+%dir %{_datadir}/games/%{name}
+%dir %{_datadir}/games/%{name}/levels
+%{_datadir}/games/%{name}/[gms]*
+%{_datadir}/games/%{name}/levels/[BCT]*
+%{_applnkdir}/Games/*
+%{_pixmapsdir}/*
+%defattr(664,root,games,755)
+%dir /var/games/%{name}
+%dir /var/games/%{name}/scores
+/var/games/%{name}/scores/[bcr]*
+
+%files levels-dx
+%defattr(644,root,root,755)
+%{_datadir}/games/%{name}/levels/DX_Boulderdash
+%defattr(664,root,games,755)
+/var/games/%{name}/scores/dx*
+
+%files levels-emc
+%defattr(644,root,root,755)
+%{_datadir}/games/%{name}/levels/Emerald_Mine_Club
+%defattr(664,root,games,755)
+/var/games/%{name}/scores/emc*
+
+%files levels-supaplex
+%defattr(644,root,root,755)
+%{_datadir}/games/%{name}/levels/Supaplex
+%defattr(664,root,games,755)
+/var/games/%{name}/scores/supaplex*
