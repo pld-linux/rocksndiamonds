@@ -24,7 +24,7 @@ If you know the game "Boulderdash" (Commodore C64) or "Emerald Mine"
 %patch -p1
 
 %build
-make
+%{__make}
 
 %install
 [ "$RPM_BUILD_ROOT" != '/' ] && rm -rf $RPM_BUILD_ROOT
