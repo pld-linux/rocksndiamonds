@@ -39,14 +39,14 @@ make install prefix=$RPM_BUILD_ROOT
 %doc CHANGES COPYING CREDITS HARDWARE INSTALL README TODO
 %attr(755,root,root) /usr/X11R6/bin/rocksndiamonds
 %doc %{_mandir}/man6/rocksndiamonds.6
-%dir /usr/lib/games/rocksndiamonds
-%dir /usr/lib/games/rocksndiamonds/graphics
-/usr/lib/games/rocksndiamonds/graphics/*
-%dir /usr/lib/games/rocksndiamonds/levels
-/usr/lib/games/rocksndiamonds/levels/*
-%dir /usr/lib/games/rocksndiamonds/sounds
-/usr/lib/games/rocksndiamonds/sounds/*
-%dir /usr/lib/games/rocksndiamonds/scores
+%dir %{_libdir}/games/rocksndiamonds
+%dir %{_libdir}/games/rocksndiamonds/graphics
+%{_libdir}/games/rocksndiamonds/graphics/*
+%dir %{_libdir}/games/rocksndiamonds/levels
+%{_libdir}/games/rocksndiamonds/levels/*
+%dir %{_libdir}/games/rocksndiamonds/sounds
+%{_libdir}/games/rocksndiamonds/sounds/*
+%dir %{_libdir}/games/rocksndiamonds/scores
 
 %changelog
 * Thu Jan 11 1999 Kjetil Wiekhorst Jørgensen <jorgens+rpm@pvv.org> [1.3.0-1]
