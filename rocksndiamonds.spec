@@ -1,5 +1,6 @@
 Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
+Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
 Version:	2.0.0
 Release:	1
@@ -12,7 +13,6 @@ Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-tape.patch
-#Patch1:		%{name}-va_arg.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
@@ -55,6 +55,20 @@ Niektóre cechy:
 - odtwarzanie modu³ów muzycznych,
 - wy¶wietlanie na ca³ym ekranie,
 - 14233 poziomy (1072 w g³ównym pakiecie.)
+
+%description -l pt_BR
+O Rocks'n'Diamonds é um jogo tipo pegue-diamantes/evite-inimigos, com
+mais de 10.000 níveis para sua diversão! Se você conhece o jogo
+"Boulderdash" para Commodore C64, "Emerald Mine" para Amiga ou
+"Supaplex" para PC, então você sabe do que se trata este jogo.
+
+Inclusos estão vários níveis dos jogos "Boulderdash", "Emerald Mine",
+"Sokoban", "Supaplex" e "DX-Boulderdash", além de vários níveis feitos
+por outros jogadores.
+
+Ele tem gráficos legais, som e música estéreo, editor de níveis, modo
+cooperativo, gravador em fita (para rever jogadas) e suporte a rede e
+joystick.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
