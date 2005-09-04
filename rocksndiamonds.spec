@@ -2,27 +2,29 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.1.0
-Release:	3
+Version:	3.1.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	526af63a10a498ab7d809783fffc9ade
+# Source0-md5:	6a6e0397f043314e3df8ee85c03590b5
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
 # Source2-md5:	3af9a97e59f29995f3f7fc4da0595af6
 Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
 # Source3-md5:	fbc250f7995c666c1c745dbaf591ce32
-Source4:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/rnd-contrib-1.0.0.tar.gz
-# Source4-md5:	bc5c427c2408c2886ceb13f59d2e3e75
+Source4:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Contributions-1.1.0.tar.gz
+# Source4-md5:	493c97dfad3cf72544257c63b9776642
+Source5:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/BD2K3-1.0.0.zip
+# Source5-md5:	ebc8e019fa9a799757d90828e242c206
+Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Snake_Bite-1.0.0.zip
+# Source6-md5:	52ef211765c995ea40ecb646345fdc2b
 # from rocksndiamonds-3.0.8, missing in 3.1.0 or contrib(?)
-Source5:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
-# Source5-md5:	d05d38c64c6e65a913932f587e37db4a
-Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/BD2K3-1.0.0.zip
-# Source6-md5:	ebc8e019fa9a799757d90828e242c206
-Source7:	%{name}.desktop
-Source8:	%{name}.png
+Source7:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
+# Source7-md5:	d05d38c64c6e65a913932f587e37db4a
+Source8:	%{name}.desktop
+Source9:	%{name}.png
 Patch0:		%{name}-tape.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
@@ -46,7 +48,7 @@ Some features:
 - stereo sound effects and music,
 - music module support,
 - fullscreen support,
-- 14233 levels (1072 in main package.)
+- over 10000 available levels (over 1000 in main package).
 
 %description -l pl
 Gra podobna do Boulderdasha (o¶miobitowce), Emerald Mine (Amiga) lub
@@ -63,7 +65,7 @@ Niektóre cechy:
 - efekty d¼wiêkowe stereo i muzyka,
 - odtwarzanie modu³ów muzycznych,
 - wy¶wietlanie na ca³ym ekranie,
-- 14233 poziomy (1072 w g³ównym pakiecie.)
+- ponad 10000 dostêpnych poziomów (ponad 1000 w g³ównym pakiecie).
 
 %description -l pt_BR
 O Rocks'n'Diamonds é um jogo tipo pegue-diamantes/evite-inimigos, com
@@ -106,17 +108,17 @@ Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
 xbd) wziête z Rocks'n'Diamonds 3.0.8.
 
 %package levels-contrib
-Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2003
-Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2003
+Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2005
+Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2005
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-contrib
-Rocks'n'Diamonds levels contributed by other players in 1995-2003.
+Rocks'n'Diamonds levels contributed by other players in 1995-2005.
 
 %description levels-contrib -l pl
 Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach
-1995-2003.
+1995-2005.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
@@ -142,6 +144,18 @@ Requires:	%{name} = %{version}-%{release}
 %description levels-emc -l pl
 10318 poziomów z Klubu Emerald Mine.
 
+%package levels-snakebite
+Summary:	Snake Bite levels
+Summary(pl):	Poziomy Snake Bite
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-snakebite
+Snake Bite levels.
+
+%description levels-snakebite -l pl
+Poziomy Snake Bite.
+
 %package levels-supaplex
 Summary:	Supaplex style levels
 Summary(pl):	Poziomy w stylu Supaplexa
@@ -155,9 +169,10 @@ Requires:	%{name} = %{version}-%{release}
 1443 poziomy w stylu Supaplexa.
 
 %prep
-%setup -q -a1 -a2 -a3 -a5
+%setup -q -a1 -a2 -a3 -a7
 tar xzf %{SOURCE4} -C levels
-unzip %{SOURCE6} -d levels
+unzip -q %{SOURCE5} -d levels
+unzip -q %{SOURCE6} -d levels
 %patch0 -p1
 
 %build
@@ -176,8 +191,8 @@ install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 cp -a graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-install %{SOURCE7}	$RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_pixmapsdir}
+install %{SOURCE8}	$RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE9}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
 install -d $RPM_BUILD_ROOT/var/games/%{name}/scores
@@ -216,7 +231,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/games/%{name}
 %dir /var/games/%{name}/scores
 %dir /var/games/%{name}/scores/classic_*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/classic_*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/classic_*/*.score
 
 %files levels-bd2k3
 %defattr(644,root,root,755)
@@ -224,39 +239,46 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/%{name}/levels/BD2K3
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/BD2K3
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/BD2K3/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/BD2K3/*.score
 
 %files levels-boulderdash
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Boulderdash
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/bd_*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/bd_*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/bd_*/*.score
 
 %files levels-contrib
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Contributions*
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/rnd_*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/rnd_*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/rnd_*/*.score
 
 %files levels-dx
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/DX_Boulderdash
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/dx*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/dx*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/dx*/*.score
 
 %files levels-emc
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Emerald_Mine_Club
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/emc*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/emc*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/emc*/*.score
+
+%files levels-snakebite
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/Snake_Bite
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/snake_bite*
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/snake_bite*/*.score
 
 %files levels-supaplex
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Supaplex
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/supaplex*
-%config(noreplace) %verify(not md5 size mtime) /var/games/%{name}/scores/supaplex*/*.score
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/supaplex*/*.score
