@@ -2,12 +2,12 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.1.1
+Version:	3.1.2
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	6a6e0397f043314e3df8ee85c03590b5
+# Source0-md5:	489d1c1401ef1fe1bd218ba465b05594
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
@@ -20,11 +20,13 @@ Source5:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/BD2K3-1.0.0.zip
 # Source5-md5:	ebc8e019fa9a799757d90828e242c206
 Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Snake_Bite-1.0.0.zip
 # Source6-md5:	52ef211765c995ea40ecb646345fdc2b
+Source7:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Boulder_Dash_Dream-1.0.0.zip
+# Source7-md5:	a7d78a41eb13932efce568cedc9b3388
 # from rocksndiamonds-3.0.8, missing in 3.1.0 or contrib(?)
-Source7:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
-# Source7-md5:	d05d38c64c6e65a913932f587e37db4a
-Source8:	%{name}.desktop
-Source9:	%{name}.png
+Source8:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
+# Source8-md5:	d05d38c64c6e65a913932f587e37db4a
+Source9:	%{name}.desktop
+Source10:	%{name}.png
 Patch0:		%{name}-tape.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
@@ -107,6 +109,18 @@ Levels from several Boulderdash clones (Boulderdash II, Boulderdash
 Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
 xbd) wziête z Rocks'n'Diamonds 3.0.8.
 
+%package levels-boulderdashdream
+Summary:	Boulder Dash Dream level set
+Summary(pl):	Zestaw poziomów Boulder Dash Dream
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-boulderdashdream
+Boulder Dash Dream level set by Martijn Mooij.
+
+%description levels-boulderdashdream -l pl
+Zestaw poziomów Boulder Dash Dream autorstwa Martijna Mooija.
+
 %package levels-contrib
 Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2005
 Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2005
@@ -169,10 +183,11 @@ Requires:	%{name} = %{version}-%{release}
 1443 poziomy w stylu Supaplexa.
 
 %prep
-%setup -q -a1 -a2 -a3 -a7
+%setup -q -a1 -a2 -a3 -a8
 tar xzf %{SOURCE4} -C levels
 unzip -q %{SOURCE5} -d levels
 unzip -q %{SOURCE6} -d levels
+unzip -q %{SOURCE7} -d levels
 %patch0 -p1
 
 %build
@@ -191,8 +206,8 @@ install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
 cp -a graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
 
-install %{SOURCE8}	$RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE9}	$RPM_BUILD_ROOT%{_pixmapsdir}
+install %{SOURCE9}	$RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE10}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
 install -d $RPM_BUILD_ROOT/var/games/%{name}/scores
@@ -247,6 +262,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/bd_*
 %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/bd_*/*.score
+
+%files levels-boulderdashdream
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/Boulder_Dash_Dream
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/Boulder_Dash_Dream
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/Boulder_Dash_Dream/*.score
 
 %files levels-contrib
 %defattr(644,root,root,755)
