@@ -2,20 +2,20 @@ Summary:	Boulderdash clone
 Summary(pl):	Klon Boulderdasha
 Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.1.2
+Version:	3.2.0
 Release:	1
 License:	GPL
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	489d1c1401ef1fe1bd218ba465b05594
+# Source0-md5:	0403e252fd978095e9546c0f10fa55ac
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
 # Source2-md5:	3af9a97e59f29995f3f7fc4da0595af6
 Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
 # Source3-md5:	fbc250f7995c666c1c745dbaf591ce32
-Source4:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Contributions-1.1.0.tar.gz
-# Source4-md5:	493c97dfad3cf72544257c63b9776642
+Source4:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Contributions-1.2.0.7z
+# Source4-md5:	241114637643024fd427d1bf40b82e47
 Source5:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/BD2K3-1.0.0.zip
 # Source5-md5:	ebc8e019fa9a799757d90828e242c206
 Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Snake_Bite-1.0.0.zip
@@ -27,11 +27,14 @@ Source8:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
 # Source8-md5:	d05d38c64c6e65a913932f587e37db4a
 Source9:	%{name}.desktop
 Source10:	%{name}.png
+Source11:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Sokoban-1.0.0.7z
+# Source11-md5:	2d34a14fbee9f62a8d8bec9fdb333ec6
 Patch0:		%{name}-tape.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
+BuildRequires:	p7zip
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -122,17 +125,18 @@ Boulder Dash Dream level set by Martijn Mooij.
 Zestaw poziomów Boulder Dash Dream autorstwa Martijna Mooija.
 
 %package levels-contrib
-Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2005
-Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2005
+Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2006
+Summary(pl):	Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach 1995-2006
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-contrib
-Rocks'n'Diamonds levels contributed by other players in 1995-2005.
+2712 Rocks'n'Diamonds levels contributed by other players in
+1995-2006.
 
 %description levels-contrib -l pl
-Poziomy do Rocks'n'Diamonds nades³ane przez innych graczy w latach
-1995-2005.
+2721 poziomów do Rocks'n'Diamonds nades³anych przez innych graczy
+w latach 1995-2006.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
@@ -170,6 +174,18 @@ Snake Bite levels.
 %description levels-snakebite -l pl
 Poziomy Snake Bite.
 
+%package levels-sokoban
+Summary:	Sokoban style levels
+Summary(pl):	Poziomy w stylu Sokobana
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-sokoban
+764 Sokoban style levels.
+
+%description levels-sokoban -l pl
+764 poziomy w stylu Sokobana.
+
 %package levels-supaplex
 Summary:	Supaplex style levels
 Summary(pl):	Poziomy w stylu Supaplexa
@@ -184,10 +200,11 @@ Requires:	%{name} = %{version}-%{release}
 
 %prep
 %setup -q -a1 -a2 -a3 -a8
-tar xzf %{SOURCE4} -C levels
+7z x %{SOURCE4} -olevels
 unzip -q %{SOURCE5} -d levels
 unzip -q %{SOURCE6} -d levels
 unzip -q %{SOURCE7} -d levels
+7z x %{SOURCE11} -olevels
 %patch0 -p1
 
 %build
@@ -272,9 +289,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files levels-contrib
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Contributions*
+%{_datadir}/%{name}/levels/Contributions
 %defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/Contributions*
+%dir /var/games/%{name}/scores/Contributions*/rnd_*
 %dir /var/games/%{name}/scores/rnd_*
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/Contributions*/rnd_*/*.score
 %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/rnd_*/*.score
 
 %files levels-dx
@@ -297,6 +317,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/snake_bite*
 %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/snake_bite*/*.score
+
+%files levels-sokoban
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/Sokoban
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/sb*
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/sb*/*.score
 
 %files levels-supaplex
 %defattr(644,root,root,755)
