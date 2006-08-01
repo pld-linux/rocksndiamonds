@@ -34,6 +34,7 @@ URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
+BuildRequires:	SDL_net-devel
 BuildRequires:	p7zip
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
