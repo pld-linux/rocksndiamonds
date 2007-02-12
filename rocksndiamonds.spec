@@ -1,6 +1,6 @@
 Summary:	Boulderdash clone
-Summary(pl.UTF-8):   Klon Boulderdasha
-Summary(pt_BR.UTF-8):   Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
+Summary(pl.UTF-8):	Klon Boulderdasha
+Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
 Version:	3.2.0
 Release:	1
@@ -89,7 +89,7 @@ joystick.
 
 %package levels-bd2k3
 Summary:	BD2K3 level set
-Summary(pl.UTF-8):   Zestaw poziomów BD2K3
+Summary(pl.UTF-8):	Zestaw poziomów BD2K3
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -101,7 +101,7 @@ Zestaw poziomów BD2K3 autorstwa Alana Bonda.
 
 %package levels-boulderdash
 Summary:	Levels from several Boulderdash clones
-Summary(pl.UTF-8):   Poziomy z kilku klonów Boulderdasha
+Summary(pl.UTF-8):	Poziomy z kilku klonów Boulderdasha
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -115,7 +115,7 @@ xbd) wzięte z Rocks'n'Diamonds 3.0.8.
 
 %package levels-boulderdashdream
 Summary:	Boulder Dash Dream level set
-Summary(pl.UTF-8):   Zestaw poziomów Boulder Dash Dream
+Summary(pl.UTF-8):	Zestaw poziomów Boulder Dash Dream
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -127,7 +127,7 @@ Zestaw poziomów Boulder Dash Dream autorstwa Martijna Mooija.
 
 %package levels-contrib
 Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2006
-Summary(pl.UTF-8):   Poziomy do Rocks'n'Diamonds nadesłane przez innych graczy w latach 1995-2006
+Summary(pl.UTF-8):	Poziomy do Rocks'n'Diamonds nadesłane przez innych graczy w latach 1995-2006
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -141,7 +141,7 @@ w latach 1995-2006.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
-Summary(pl.UTF-8):   Poziomy z DX Boulderdash
+Summary(pl.UTF-8):	Poziomy z DX Boulderdash
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -153,7 +153,7 @@ Requires:	%{name} = %{version}-%{release}
 
 %package levels-emc
 Summary:	Levels from Emerald Mine Club
-Summary(pl.UTF-8):   Poziomy z Klubu Emerald Mine
+Summary(pl.UTF-8):	Poziomy z Klubu Emerald Mine
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -165,7 +165,7 @@ Requires:	%{name} = %{version}-%{release}
 
 %package levels-snakebite
 Summary:	Snake Bite levels
-Summary(pl.UTF-8):   Poziomy Snake Bite
+Summary(pl.UTF-8):	Poziomy Snake Bite
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -177,7 +177,7 @@ Poziomy Snake Bite.
 
 %package levels-sokoban
 Summary:	Sokoban style levels
-Summary(pl.UTF-8):   Poziomy w stylu Sokobana
+Summary(pl.UTF-8):	Poziomy w stylu Sokobana
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -189,7 +189,7 @@ Requires:	%{name} = %{version}-%{release}
 
 %package levels-supaplex
 Summary:	Supaplex style levels
-Summary(pl.UTF-8):   Poziomy w stylu Supaplexa
+Summary(pl.UTF-8):	Poziomy w stylu Supaplexa
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
