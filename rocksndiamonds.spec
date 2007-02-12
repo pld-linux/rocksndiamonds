@@ -1,6 +1,6 @@
 Summary:	Boulderdash clone
-Summary(pl):	Klon Boulderdasha
-Summary(pt_BR):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 nÌveis
+Summary(pl.UTF-8):   Klon Boulderdasha
+Summary(pt_BR.UTF-8):   Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 n√≠veis
 Name:		rocksndiamonds
 Version:	3.2.0
 Release:	1
@@ -56,52 +56,52 @@ Some features:
 - fullscreen support,
 - over 10000 available levels (over 1000 in main package).
 
-%description -l pl
-Gra podobna do Boulderdasha (o∂miobitowce), Emerald Mine (Amiga) lub
-Supapleksa (PC). Za≥±czonych jest wiele poziomÛw z gier "Boulderdash",
+%description -l pl.UTF-8
+Gra podobna do Boulderdasha (o≈õmiobitowce), Emerald Mine (Amiga) lub
+Supapleksa (PC). Za≈ÇƒÖczonych jest wiele poziom√≥w z gier "Boulderdash",
 "Emerald Mine", "Sokoban", "Supaplex" i "DX-Boulderdash", jak i
-zupe≥nie nowych, zaprojektowanych przez innych graczy. Gra wspiera
-rÛwnieø elementy poziomÛw z "Diamond Caves II".
+zupe≈Çnie nowych, zaprojektowanych przez innych graczy. Gra wspiera
+r√≥wnie≈º elementy poziom√≥w z "Diamond Caves II".
 
-NiektÛre cechy:
-- obs≥uga joysticka,
+Niekt√≥re cechy:
+- obs≈Çuga joysticka,
 - wsparcie dla lokalnej gry wieloosobowej,
 - wsparcie dla sieciowej gry wieloosobowej,
-- p≥ynne przewijanie z 50 klatkami/s,
-- efekty dºwiÍkowe stereo i muzyka,
-- odtwarzanie modu≥Ûw muzycznych,
-- wy∂wietlanie na ca≥ym ekranie,
-- ponad 10000 dostÍpnych poziomÛw (ponad 1000 w g≥Ûwnym pakiecie).
+- p≈Çynne przewijanie z 50 klatkami/s,
+- efekty d≈∫wiƒôkowe stereo i muzyka,
+- odtwarzanie modu≈Ç√≥w muzycznych,
+- wy≈õwietlanie na ca≈Çym ekranie,
+- ponad 10000 dostƒôpnych poziom√≥w (ponad 1000 w g≈Ç√≥wnym pakiecie).
 
-%description -l pt_BR
-O Rocks'n'Diamonds È um jogo tipo pegue-diamantes/evite-inimigos, com
-mais de 10.000 nÌveis para sua divers„o! Se vocÍ conhece o jogo
+%description -l pt_BR.UTF-8
+O Rocks'n'Diamonds √© um jogo tipo pegue-diamantes/evite-inimigos, com
+mais de 10.000 n√≠veis para sua divers√£o! Se voc√™ conhece o jogo
 "Boulderdash" para Commodore C64, "Emerald Mine" para Amiga ou
-"Supaplex" para PC, ent„o vocÍ sabe do que se trata este jogo.
+"Supaplex" para PC, ent√£o voc√™ sabe do que se trata este jogo.
 
-Inclusos est„o v·rios nÌveis dos jogos "Boulderdash", "Emerald Mine",
-"Sokoban", "Supaplex" e "DX-Boulderdash", alÈm de v·rios nÌveis feitos
+Inclusos est√£o v√°rios n√≠veis dos jogos "Boulderdash", "Emerald Mine",
+"Sokoban", "Supaplex" e "DX-Boulderdash", al√©m de v√°rios n√≠veis feitos
 por outros jogadores.
 
-Ele tem gr·ficos legais, som e m˙sica estÈreo, editor de nÌveis, modo
+Ele tem gr√°ficos legais, som e m√∫sica est√©reo, editor de n√≠veis, modo
 cooperativo, gravador em fita (para rever jogadas) e suporte a rede e
 joystick.
 
 %package levels-bd2k3
 Summary:	BD2K3 level set
-Summary(pl):	Zestaw poziomÛw BD2K3
+Summary(pl.UTF-8):   Zestaw poziom√≥w BD2K3
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-bd2k3
 BD2K3 level set by Alan Bond.
 
-%description levels-bd2k3 -l pl
-Zestaw poziomÛw BD2K3 autorstwa Alana Bonda.
+%description levels-bd2k3 -l pl.UTF-8
+Zestaw poziom√≥w BD2K3 autorstwa Alana Bonda.
 
 %package levels-boulderdash
 Summary:	Levels from several Boulderdash clones
-Summary(pl):	Poziomy z kilku klonÛw Boulderdasha
+Summary(pl.UTF-8):   Poziomy z kilku klon√≥w Boulderdasha
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -109,25 +109,25 @@ Requires:	%{name} = %{version}-%{release}
 Levels from several Boulderdash clones (Boulderdash II, Boulderdash
 16, xbd) taken from Rocks'n'Diamonds 3.0.8.
 
-%description levels-boulderdash -l pl
-Poziomy z kilku klonÛw Boulderdasha (Boulderdash II, Boulderdash 16,
-xbd) wziÍte z Rocks'n'Diamonds 3.0.8.
+%description levels-boulderdash -l pl.UTF-8
+Poziomy z kilku klon√≥w Boulderdasha (Boulderdash II, Boulderdash 16,
+xbd) wziƒôte z Rocks'n'Diamonds 3.0.8.
 
 %package levels-boulderdashdream
 Summary:	Boulder Dash Dream level set
-Summary(pl):	Zestaw poziomÛw Boulder Dash Dream
+Summary(pl.UTF-8):   Zestaw poziom√≥w Boulder Dash Dream
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-boulderdashdream
 Boulder Dash Dream level set by Martijn Mooij.
 
-%description levels-boulderdashdream -l pl
-Zestaw poziomÛw Boulder Dash Dream autorstwa Martijna Mooija.
+%description levels-boulderdashdream -l pl.UTF-8
+Zestaw poziom√≥w Boulder Dash Dream autorstwa Martijna Mooija.
 
 %package levels-contrib
 Summary:	Rocks'n'Diamonds levels contributed by other players in 1995-2006
-Summary(pl):	Poziomy do Rocks'n'Diamonds nades≥ane przez innych graczy w latach 1995-2006
+Summary(pl.UTF-8):   Poziomy do Rocks'n'Diamonds nades≈Çane przez innych graczy w latach 1995-2006
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
@@ -135,68 +135,68 @@ Requires:	%{name} = %{version}-%{release}
 2712 Rocks'n'Diamonds levels contributed by other players in
 1995-2006.
 
-%description levels-contrib -l pl
-2721 poziomÛw do Rocks'n'Diamonds nades≥anych przez innych graczy
+%description levels-contrib -l pl.UTF-8
+2721 poziom√≥w do Rocks'n'Diamonds nades≈Çanych przez innych graczy
 w latach 1995-2006.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
-Summary(pl):	Poziomy z DX Boulderdash
+Summary(pl.UTF-8):   Poziomy z DX Boulderdash
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-dx
 1400 levels from DX Boulderdash.
 
-%description levels-dx -l pl
-1400 poziomÛw z DX Boulderdash.
+%description levels-dx -l pl.UTF-8
+1400 poziom√≥w z DX Boulderdash.
 
 %package levels-emc
 Summary:	Levels from Emerald Mine Club
-Summary(pl):	Poziomy z Klubu Emerald Mine
+Summary(pl.UTF-8):   Poziomy z Klubu Emerald Mine
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-emc
 10318 levels from Emerald Mine Club.
 
-%description levels-emc -l pl
-10318 poziomÛw z Klubu Emerald Mine.
+%description levels-emc -l pl.UTF-8
+10318 poziom√≥w z Klubu Emerald Mine.
 
 %package levels-snakebite
 Summary:	Snake Bite levels
-Summary(pl):	Poziomy Snake Bite
+Summary(pl.UTF-8):   Poziomy Snake Bite
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-snakebite
 Snake Bite levels.
 
-%description levels-snakebite -l pl
+%description levels-snakebite -l pl.UTF-8
 Poziomy Snake Bite.
 
 %package levels-sokoban
 Summary:	Sokoban style levels
-Summary(pl):	Poziomy w stylu Sokobana
+Summary(pl.UTF-8):   Poziomy w stylu Sokobana
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-sokoban
 764 Sokoban style levels.
 
-%description levels-sokoban -l pl
+%description levels-sokoban -l pl.UTF-8
 764 poziomy w stylu Sokobana.
 
 %package levels-supaplex
 Summary:	Supaplex style levels
-Summary(pl):	Poziomy w stylu Supaplexa
+Summary(pl.UTF-8):   Poziomy w stylu Supaplexa
 Group:		X11/Applications/Games
 Requires:	%{name} = %{version}-%{release}
 
 %description levels-supaplex
 1443 Supaplex style levels.
 
-%description levels-supaplex -l pl
+%description levels-supaplex -l pl.UTF-8
 1443 poziomy w stylu Supaplexa.
 
 %prep
