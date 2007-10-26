@@ -29,6 +29,10 @@ Source9:	%{name}.desktop
 Source10:	%{name}.png
 Source11:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Sokoban-1.0.0.7z
 # Source11-md5:	2d34a14fbee9f62a8d8bec9fdb333ec6
+Source12:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Zelda-1.0.0.zip
+# Source12-md5:	8e9d7c8e9d7595ac987d879774c488cd
+Source13:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/ZeldaII-1.0.0.zip
+# Source13-md5:	d8e6449f6ad5e29a07354e0e15290481
 Patch0:		%{name}-tape.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
@@ -199,12 +203,26 @@ Requires:	%{name} = %{version}-%{release}
 %description levels-supaplex -l pl.UTF-8
 1443 poziomy w stylu Supaplexa.
 
+%package levels-zelda
+Summary:	Zelda levels
+Summary(pl.UTF-8):	Poziomy Zelda
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
+
+%description levels-zelda
+2 levels: Zelda and Zelda 2.
+
+%description levels-zelda -l pl.UTF-8
+2 poziomy: Zelda oraz Zelda 2.
+
 %prep
 %setup -q -a1 -a2 -a3 -a8
 7z x %{SOURCE4} -olevels
 unzip -q %{SOURCE5} -d levels
 unzip -q %{SOURCE6} -d levels
 unzip -q %{SOURCE7} -d levels
+unzip -q %{SOURCE12} -d levels
+unzip -q %{SOURCE13} -d levels
 7z x %{SOURCE11} -olevels
 %patch0 -p1
 
@@ -244,6 +262,10 @@ for i in *; do
 	cd ..
 done
 rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/BD2K3/readme.txt
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/Boulder_Dash_Dream/readme.txt
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/zelda/readme.txt
+#remove titlemessage_1.txt too?
+rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/zelda2/readme.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -332,3 +354,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(664,root,games,755)
 %dir /var/games/%{name}/scores/supaplex*
 %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/supaplex*/*.score
+
+%files levels-zelda
+%defattr(644,root,root,755)
+%{_datadir}/%{name}/levels/zelda*
+%defattr(664,root,games,755)
+%dir /var/games/%{name}/scores/zelda*
+%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/zelda*/*.score
