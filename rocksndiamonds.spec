@@ -1,13 +1,14 @@
+# TODO: Source8 disappeared from repo, maybe we should remove it from the spec
 Summary:	Boulderdash clone
 Summary(pl.UTF-8):	Klon Boulderdasha
 Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.2.4
+Version:	3.2.6.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	561bbebc7f59b3fa61bae9d7340ae49d
+# Source0-md5:	e66ad4b40659e9ad19277043638d3607
 Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
 # Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
@@ -22,8 +23,7 @@ Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Snake_Bite-1.0.0.
 # Source6-md5:	52ef211765c995ea40ecb646345fdc2b
 Source7:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Boulder_Dash_Dream-1.0.0.zip
 # Source7-md5:	a7d78a41eb13932efce568cedc9b3388
-# from rocksndiamonds-3.0.8, missing in 3.1.0 or contrib(?)
-Source8:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
+#Source8:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
 # Source8-md5:	d05d38c64c6e65a913932f587e37db4a
 Source9:	%{name}.desktop
 Source10:	%{name}.png
@@ -103,19 +103,20 @@ BD2K3 level set by Alan Bond.
 %description levels-bd2k3 -l pl.UTF-8
 Zestaw poziomów BD2K3 autorstwa Alana Bonda.
 
-%package levels-boulderdash
-Summary:	Levels from several Boulderdash clones
-Summary(pl.UTF-8):	Poziomy z kilku klonów Boulderdasha
-Group:		X11/Applications/Games
-Requires:	%{name} = %{version}-%{release}
+# Missing levels
+#%%package levels-boulderdash
+#Summary:	Levels from several Boulderdash clones
+#Summary(pl.UTF-8):	Poziomy z kilku klonów Boulderdasha
+#Group:		X11/Applications/Games
+#Requires:	%{name} = %{version}-%{release}
 
-%description levels-boulderdash
-Levels from several Boulderdash clones (Boulderdash II, Boulderdash
-16, xbd) taken from Rocks'n'Diamonds 3.0.8.
+#$%description levels-boulderdash
+#Levels from several Boulderdash clones (Boulderdash II, Boulderdash
+#16, xbd) taken from Rocks'n'Diamonds 3.0.8.
 
-%description levels-boulderdash -l pl.UTF-8
-Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
-xbd) wzięte z Rocks'n'Diamonds 3.0.8.
+#%%description levels-boulderdash -l pl.UTF-8
+#Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
+#xbd) wzięte z Rocks'n'Diamonds 3.0.8.
 
 %package levels-boulderdashdream
 Summary:	Boulder Dash Dream level set
@@ -216,7 +217,7 @@ Requires:	%{name} = %{version}-%{release}
 2 poziomy: Zelda oraz Zelda 2.
 
 %prep
-%setup -q -a1 -a2 -a3 -a8
+%setup -q -a1 -a2 -a3
 7z x %{SOURCE4} -olevels
 unzip -q %{SOURCE5} -d levels
 unzip -q %{SOURCE6} -d levels
@@ -296,12 +297,13 @@ rm -rf $RPM_BUILD_ROOT
 %dir /var/games/%{name}/scores/BD2K3
 %config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/BD2K3/*.score
 
-%files levels-boulderdash
-%defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Boulderdash
-%defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/bd_*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/bd_*/*.score
+# Missing levels
+#%%files levels-boulderdash
+#%%defattr(644,root,root,755)
+#%%{_datadir}/%{name}/levels/Boulderdash
+#%%defattr(664,root,games,755)
+#%%dir /var/games/%{name}/scores/bd_*
+#%%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/bd_*/*.score
 
 %files levels-boulderdashdream
 %defattr(644,root,root,755)
