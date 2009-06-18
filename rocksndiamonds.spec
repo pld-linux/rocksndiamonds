@@ -1,16 +1,19 @@
-# TODO: Source8 disappeared from repo, maybe we should remove it from the spec
+#
+# TODO: - Source8 disappeared from repo, maybe we should remove it from the spec
+#	- change Emerald_Mine_Club level file's extension to proper one and create score files for each level
+#
 Summary:	Boulderdash clone
 Summary(pl.UTF-8):	Klon Boulderdasha
 Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.2.6.0
+Version:	3.2.6.1
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	e66ad4b40659e9ad19277043638d3607
-Source1:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-emc-1.0.tar.gz
-# Source1-md5:	9c6cbf7394e465a90af66236dc1db6f5
+# Source0-md5:	75a4a7c7f11e89fc4a664da3b016a783
+Source1:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Emerald_Mine_Club-2.1.0.7z
+# Source1-md5:	731719b16587da63697b0d6e2d49a23e
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
 # Source2-md5:	3af9a97e59f29995f3f7fc4da0595af6
 Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
@@ -217,7 +220,8 @@ Requires:	%{name} = %{version}-%{release}
 2 poziomy: Zelda oraz Zelda 2.
 
 %prep
-%setup -q -a1 -a2 -a3
+%setup -q -a2 -a3
+7z x %{SOURCE1} -olevels
 7z x %{SOURCE4} -olevels
 unzip -q %{SOURCE5} -d levels
 unzip -q %{SOURCE6} -d levels
@@ -333,8 +337,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/%{name}/levels/Emerald_Mine_Club
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/emc*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/emc*/*.score
+#%%dir /var/games/%{name}/scores/emc*
+#%%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/emc*/*.score
 
 %files levels-snakebite
 %defattr(644,root,root,755)
