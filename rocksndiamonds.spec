@@ -43,6 +43,7 @@ BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
 BuildRequires:	SDL_net-devel
 BuildRequires:	p7zip
+BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -230,6 +231,8 @@ unzip -q %{SOURCE12} -d levels
 unzip -q %{SOURCE13} -d levels
 7z x %{SOURCE11} -olevels
 %patch0 -p1
+
+sed -i -e 's/ -lsmpeg//' src/Makefile
 
 %build
 %{__make} \
