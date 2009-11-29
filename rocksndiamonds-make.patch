@@ -1,0 +1,93 @@
+--- rocksndiamonds-3.2.6.1/src/Makefile.orig	2009-06-15 22:47:52.000000000 +0200
++++ rocksndiamonds-3.2.6.1/src/Makefile	2009-11-29 18:33:43.414775288 +0100
+@@ -47,12 +47,12 @@
+ # -----------------------------------------------------------------------------
+ 
+ ifeq ($(PLATFORM),solaris)		# native compiling to Solaris
+-EXTRA_LDFLAGS = -lnsl -lsocket -R$(XLIB_PATH)
++EXTRA_LIBS = -lnsl -lsocket -R$(XLIB_PATH)
+ PLATFORM = unix
+ endif
+ 
+ ifeq ($(PLATFORM),macosx)		# native compiling to Mac OS X
+-EXTRA_LDFLAGS = -lstdc++
++EXTRA_LIBS = -lstdc++
+ PLATFORM = unix
+ TARGET = sdl
+ endif
+@@ -61,7 +61,7 @@
+ RANLIB = echo
+ PROGNAME = ../$(PROGBASE).exe
+ EXTRA_CFLAGS = -Zbin-files -D__ST_MT_ERRNO__ -Zmtd -fomit-frame-pointer
+-EXTRA_LDFLAGS = -lsocket
++EXTRA_LIBS = -lsocket
+ PLATFORM = unix
+ TARGET = x11
+ endif
+@@ -72,7 +72,7 @@
+ 
+ ifeq ($(PLATFORM),cross-win32)		# cross-compiling to Windows
+ PROGNAME = ../$(PROGBASE).exe
+-EXTRA_LDFLAGS = -lshfolder -lwsock32
++EXTRA_LIBS = -lshfolder -lwsock32
+ TARGET = sdl
+ endif
+ 
+@@ -86,7 +86,7 @@
+ PROGBASE = rocks
+ PROGNAME = ../$(PROGBASE).exe
+ SYS_CFLAGS = -DTARGET_X11
+-SYS_LDFLAGS = -s -lalleg
++SYS_LIBS = -lalleg
+ RM = del
+ endif
+ 
+@@ -97,24 +97,24 @@
+ 
+ ifeq ($(TARGET),x11)			# compiling for X11 target
+ SYS_CFLAGS  = -DTARGET_X11 $(X11_INCL)
+-SYS_LDFLAGS = $(X11_LIBS)
++SYS_LIBS = $(X11_LIBS)
+ endif
+ 
+ ifeq ($(TARGET),sdl)			# compiling for SDL target
+ SYS_CFLAGS  = -DTARGET_SDL $(shell sdl-config --cflags)
+-SDL_LIBS = -lSDL_image -lSDL_mixer -lSDL_net -lsmpeg
+-SYS_LDFLAGS = $(SDL_LIBS) $(shell sdl-config --libs)
++SDL_LIBS = -lSDL_image -lSDL_mixer -lSDL_net
++SYS_LIBS = $(SDL_LIBS) $(shell sdl-config --libs)
+ endif
+ 
+ ifeq ($(TARGET),sdl-static)		# compiling for SDL target (static)
+ SYS_CFLAGS  = -DTARGET_SDL $(shell sdl-config --cflags)
+-SDL_LIBS = -lSDL_image -lSDL_mixer -lSDL_net -lsmpeg
+-SYS_LDFLAGS = $(SDL_LIBS) $(shell sdl-config --static-libs)
++SDL_LIBS = -lSDL_image -lSDL_mixer -lSDL_net
++SYS_LIBS = $(SDL_LIBS) $(shell sdl-config --static-libs)
+ endif
+ 
+ ifeq ($(TARGET),allegro)		# compiling for Allegro target
+ SYS_CFLAGS = -DTARGET_ALLEGRO -I$(CROSS_PATH_MSDOS)/include
+-SYS_LDFLAGS = -lalleg
++SYS_LIBS = -lalleg
+ endif
+ 
+ 
+@@ -161,7 +161,7 @@
+ endif
+ 
+ CFLAGS = $(OPTIONS) $(SYS_CFLAGS)  $(EXTRA_CFLAGS) $(CONFIG)
+-LDFLAGS =           $(SYS_LDFLAGS) $(EXTRA_LDFLAGS) -lm
++LIBS =           $(SYS_LIBS) $(EXTRA_LIBS) -lm
+ 
+ 
+ SRCS =	main.c		\
+@@ -249,7 +249,7 @@
+ all: libgame_dir game_em_dir $(PROGNAME)
+ 
+ $(PROGNAME): $(RNDLIBS) $(TIMESTAMP_FILE) $(OBJS) $(ICON)
+-	$(CC) $(PROFILING) $(OBJS) $(ICON) $(RNDLIBS) $(LDFLAGS) -o $(PROGNAME)
++	$(CC) $(CFLAGS) $(LDFLAGS) $(PROFILING) $(OBJS) $(ICON) $(RNDLIBS) $(LIBS) -o $(PROGNAME)
+ 
+ libgame_dir:
+ 	@$(MAKE) -C $(LIBGAME_DIR)
