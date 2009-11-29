@@ -1,6 +1,10 @@
 #
-# TODO: - Source8 disappeared from repo, maybe we should remove it from the spec
-#	- change Emerald_Mine_Club level file's extension to proper one and create score files for each level
+# TODO:
+#  - Source8 disappeared from repo, maybe we should remove it from the spec
+#  - change Emerald_Mine_Club level file's extension to proper one and create
+#    score files for each level
+#  - move levels to separate spec file (rocksndiamonds-levels ?) and make it
+#    noarch
 #
 Summary:	Boulderdash clone
 Summary(pl.UTF-8):	Klon Boulderdasha
@@ -27,7 +31,7 @@ Source6:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Snake_Bite-1.0.0.
 Source7:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Boulder_Dash_Dream-1.0.0.zip
 # Source7-md5:	a7d78a41eb13932efce568cedc9b3388
 #Source8:	rocksndiamonds-3.0.8-Boulderdash.tar.gz
-# Source8-md5:	d05d38c64c6e65a913932f587e37db4a
+## Source8-md5:	d05d38c64c6e65a913932f587e37db4a
 Source9:	%{name}.desktop
 Source10:	%{name}.png
 Source11:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Sokoban-1.0.0.7z
@@ -37,6 +41,7 @@ Source12:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Zelda-1.0.0.zip
 Source13:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/ZeldaII-1.0.0.zip
 # Source13-md5:	d8e6449f6ad5e29a07354e0e15290481
 Patch0:		%{name}-tape.patch
+Patch1:		%{name}-make.patch
 URL:		http://www.artsoft.org/rocksndiamonds/
 BuildRequires:	SDL-devel >= 1.1.0
 BuildRequires:	SDL_image-devel
@@ -46,6 +51,9 @@ BuildRequires:	p7zip
 BuildRequires:	sed >= 4.0
 BuildRequires:	unzip
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		rodir	%{_datadir}/games/%{name}
+%define		rwdir	/var/games/%{name}
 
 %description
 A game like "Boulderdash" (C 64), "Emerald Mine" (Amiga) or "Supaplex"
@@ -107,20 +115,19 @@ BD2K3 level set by Alan Bond.
 %description levels-bd2k3 -l pl.UTF-8
 Zestaw poziomów BD2K3 autorstwa Alana Bonda.
 
-# Missing levels
-#%%package levels-boulderdash
-#Summary:	Levels from several Boulderdash clones
-#Summary(pl.UTF-8):	Poziomy z kilku klonów Boulderdasha
-#Group:		X11/Applications/Games
-#Requires:	%{name} = %{version}-%{release}
+%package levels-boulderdash
+Summary:	Levels from several Boulderdash clones
+Summary(pl.UTF-8):	Poziomy z kilku klonów Boulderdasha
+Group:		X11/Applications/Games
+Requires:	%{name} = %{version}-%{release}
 
-#$%description levels-boulderdash
-#Levels from several Boulderdash clones (Boulderdash II, Boulderdash
-#16, xbd) taken from Rocks'n'Diamonds 3.0.8.
+%description levels-boulderdash
+Levels from several Boulderdash clones (Boulderdash II, Boulderdash
+16, xbd) taken from Rocks'n'Diamonds 3.0.8.
 
-#%%description levels-boulderdash -l pl.UTF-8
-#Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
-#xbd) wzięte z Rocks'n'Diamonds 3.0.8.
+%description levels-boulderdash -l pl.UTF-8
+Poziomy z kilku klonów Boulderdasha (Boulderdash II, Boulderdash 16,
+xbd) wzięte z Rocks'n'Diamonds 3.0.8.
 
 %package levels-boulderdashdream
 Summary:	Boulder Dash Dream level set
@@ -231,32 +238,34 @@ unzip -q %{SOURCE12} -d levels
 unzip -q %{SOURCE13} -d levels
 7z x %{SOURCE11} -olevels
 %patch0 -p1
-
-sed -i -e 's/ -lsmpeg//' src/Makefile
+%patch1 -p1
 
 %build
 %{__make} \
 	CC="%{__cc}" \
 	OPTIONS="%{rpmcflags} -Wall" \
-	RO_GAME_DIR=%{_datadir}/%{name} \
-	RW_GAME_DIR=/var/games/%{name} \
+	LDFLAGS="%{rpmldflags}" \
+	RO_GAME_DIR=%{rodir} \
+	RW_GAME_DIR=%{rwdir} \
 	SCORE_ENTRIES=MANY_PER_NAME
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{_datadir}/%{name},%{_desktopdir},%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_mandir}/man6,%{rodir},%{_desktopdir},%{_pixmapsdir}}
 
 install %{name}		$RPM_BUILD_ROOT%{_bindir}
 install %{name}.1	$RPM_BUILD_ROOT%{_mandir}/man6/%{name}.6
-cp -a graphics levels music sounds $RPM_BUILD_ROOT%{_datadir}/%{name}
+cp -a graphics levels music sounds $RPM_BUILD_ROOT%{rodir}
 
 install %{SOURCE9}	$RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE10}	$RPM_BUILD_ROOT%{_pixmapsdir}
 
 # scores
-install -d $RPM_BUILD_ROOT/var/games/%{name}/scores
-cd $RPM_BUILD_ROOT%{_datadir}/%{name}/levels
+install -d $RPM_BUILD_ROOT%{rwdir}/scores
+cd $RPM_BUILD_ROOT%{rodir}/levels
+set +x
 for i in *; do
+	echo "Preparing score file for $i"
 	cd $i
 	for file in `find . -name '*.level' -type f`; do
 		dir=$(dirname "$file")
@@ -264,16 +273,19 @@ for i in *; do
 			dir="$i"
 		fi
 		file=$(basename "$file" .level)
-		install -d $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}
-		touch $RPM_BUILD_ROOT/var/games/%{name}/scores/${dir}/${file}.score
+		install -d $RPM_BUILD_ROOT%{rwdir}/scores/${dir}
+		touch $RPM_BUILD_ROOT%{rwdir}/scores/${dir}/${file}.score
+		echo -n .
 	done
 	cd ..
+	echo "OK"
 done
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/BD2K3/readme.txt
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/Boulder_Dash_Dream/readme.txt
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/zelda/readme.txt
+set -x
+rm -f $RPM_BUILD_ROOT%{rodir}/levels/BD2K3/readme.txt
+rm -f $RPM_BUILD_ROOT%{rodir}/levels/Boulder_Dash_Dream/readme.txt
+rm -f $RPM_BUILD_ROOT%{rodir}/levels/zelda/readme.txt
 #remove titlemessage_1.txt too?
-rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/levels/zelda2/readme.txt
+rm -f $RPM_BUILD_ROOT%{rodir}/levels/zelda2/readme.txt
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -282,91 +294,93 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CHANGES HARDWARE README TODO docs/elements
 %attr(2755,root,games) %{_bindir}/%{name}
-%dir %{_datadir}/%{name}
-%{_datadir}/%{name}/[gms]*
-%dir %{_datadir}/%{name}/levels
-%{_datadir}/%{name}/levels/Classic_Games
-%{_datadir}/%{name}/levels/Tutorials
+%dir %{rodir}
+%{rodir}/[gms]*
+%dir %{rodir}/levels
+%{rodir}/levels/Classic_Games
+%{rodir}/levels/Tutorials
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*.png
 %{_mandir}/man6/*
 %defattr(664,root,games,755)
-%dir /var/games/%{name}
-%dir /var/games/%{name}/scores
-%dir /var/games/%{name}/scores/classic_*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/classic_*/*.score
+%dir %{rwdir}
+%dir %{rwdir}/scores
+%dir %{rwdir}/scores/classic_*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/classic_*/*.score
 
 %files levels-bd2k3
 %defattr(644,root,root,755)
 %doc levels/BD2K3/readme.txt
-%{_datadir}/%{name}/levels/BD2K3
+%{rodir}/levels/BD2K3
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/BD2K3
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/BD2K3/*.score
+%dir %{rwdir}/scores/BD2K3
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/BD2K3/*.score
 
+%if 0
 # Missing levels
-#%%files levels-boulderdash
-#%%defattr(644,root,root,755)
-#%%{_datadir}/%{name}/levels/Boulderdash
-#%%defattr(664,root,games,755)
-#%%dir /var/games/%{name}/scores/bd_*
-#%%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/bd_*/*.score
+%files levels-boulderdash
+%defattr(644,root,root,755)
+%{rodir}/levels/Boulderdash
+%defattr(664,root,games,755)
+%dir %{rwdir}/scores/bd_*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/bd_*/*.score
+%endif
 
 %files levels-boulderdashdream
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Boulder_Dash_Dream
+%{rodir}/levels/Boulder_Dash_Dream
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/Boulder_Dash_Dream
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/Boulder_Dash_Dream/*.score
+%dir %{rwdir}/scores/Boulder_Dash_Dream
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/Boulder_Dash_Dream/*.score
 
 %files levels-contrib
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Contributions
+%{rodir}/levels/Contributions
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/Contributions*
-%dir /var/games/%{name}/scores/Contributions*/rnd_*
-%dir /var/games/%{name}/scores/rnd_*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/Contributions*/rnd_*/*.score
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/rnd_*/*.score
+%dir %{rwdir}/scores/Contributions*
+%dir %{rwdir}/scores/Contributions*/rnd_*
+%dir %{rwdir}/scores/rnd_*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/Contributions*/rnd_*/*.score
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/rnd_*/*.score
 
 %files levels-dx
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/DX_Boulderdash
+%{rodir}/levels/DX_Boulderdash
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/dx*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/dx*/*.score
+%dir %{rwdir}/scores/dx*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/dx*/*.score
 
 %files levels-emc
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Emerald_Mine_Club
+%{rodir}/levels/Emerald_Mine_Club
 %defattr(664,root,games,755)
-#%%dir /var/games/%{name}/scores/emc*
-#%%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/emc*/*.score
+#%%dir %{rwdir}/scores/emc*
+#%%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/emc*/*.score
 
 %files levels-snakebite
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Snake_Bite
+%{rodir}/levels/Snake_Bite
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/snake_bite*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/snake_bite*/*.score
+%dir %{rwdir}/scores/snake_bite*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/snake_bite*/*.score
 
 %files levels-sokoban
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Sokoban
+%{rodir}/levels/Sokoban
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/sb*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/sb*/*.score
+%dir %{rwdir}/scores/sb*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/sb*/*.score
 
 %files levels-supaplex
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/Supaplex
+%{rodir}/levels/Supaplex
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/supaplex*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/supaplex*/*.score
+%dir %{rwdir}/scores/supaplex*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/supaplex*/*.score
 
 %files levels-zelda
 %defattr(644,root,root,755)
-%{_datadir}/%{name}/levels/zelda*
+%{rodir}/levels/zelda*
 %defattr(664,root,games,755)
-%dir /var/games/%{name}/scores/zelda*
-%config(noreplace) %verify(not md5 mtime size) /var/games/%{name}/scores/zelda*/*.score
+%dir %{rwdir}/scores/zelda*
+%config(noreplace) %verify(not md5 mtime size) %{rwdir}/scores/zelda*/*.score
