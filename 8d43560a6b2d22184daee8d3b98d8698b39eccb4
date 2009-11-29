@@ -1,0 +1,3 @@
+- data moved from %{_datadir}/games/%{name} to %{_datadir}/%{name}
+  (there is no /usr/X11R6/share/games dir in PLD)
+- release 2
