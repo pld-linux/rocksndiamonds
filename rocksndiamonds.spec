@@ -10,12 +10,12 @@ Summary:	Boulderdash clone
 Summary(pl.UTF-8):	Klon Boulderdasha
 Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.2.6.1
+Version:	3.3.0.0
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	75a4a7c7f11e89fc4a664da3b016a783
+# Source0-md5:	191b7a63de9706b0aee52cdf983b3267
 Source1:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Emerald_Mine_Club-2.1.0.7z
 # Source1-md5:	731719b16587da63697b0d6e2d49a23e
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
@@ -152,8 +152,8 @@ Requires:	%{name} = %{version}-%{release}
 1995-2006.
 
 %description levels-contrib -l pl.UTF-8
-2721 poziomów do Rocks'n'Diamonds nadesłanych przez innych graczy
-w latach 1995-2006.
+2721 poziomów do Rocks'n'Diamonds nadesłanych przez innych graczy w
+latach 1995-2006.
 
 %package levels-dx
 Summary:	Levels from DX Boulderdash
@@ -292,7 +292,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc CHANGES HARDWARE README TODO docs/elements
+%doc ChangeLog CREDITS README docs/elements
 %attr(2755,root,games) %{_bindir}/%{name}
 %dir %{rodir}
 %{rodir}/[gms]*
