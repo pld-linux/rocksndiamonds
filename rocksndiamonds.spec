@@ -11,13 +11,13 @@ Summary(pl.UTF-8):	Klon Boulderdasha
 Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
 Version:	3.3.0.1
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
 # Source0-md5:	813ced99d54f89db7c593c518d197d18
-Source1:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Emerald_Mine_Club-2.1.0.7z
-# Source1-md5:	731719b16587da63697b0d6e2d49a23e
+Source1:	http://www.artsoft.org/RELEASES/rocksndiamonds/levels/Emerald_Mine_Club-2.1.1.7z
+# Source1-md5:	11437b4a7a2731449dcd3aff50fa7737
 Source2:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-sp-1.0.tar.gz
 # Source2-md5:	3af9a97e59f29995f3f7fc4da0595af6
 Source3:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/levels/rockslevels-dx-1.0.tar.gz
