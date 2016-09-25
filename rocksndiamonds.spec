@@ -2,12 +2,12 @@ Summary:	Boulderdash clone
 Summary(pl.UTF-8):	Klon Boulderdasha
 Summary(pt_BR.UTF-8):	Jogo tipo Boulderdash de pegar diamantes com mais de 10.000 níveis
 Name:		rocksndiamonds
-Version:	3.3.0.1
-Release:	2
+Version:	3.3.1.2
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games
 Source0:	http://www.artsoft.org/RELEASES/unix/rocksndiamonds/%{name}-%{version}.tar.gz
-# Source0-md5:	813ced99d54f89db7c593c518d197d18
+# Source0-md5:	9fb7d125a314f55c5148c0e47f9ebb42
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-tape.patch
